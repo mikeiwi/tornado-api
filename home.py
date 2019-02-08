@@ -38,5 +38,5 @@ def make_app():
 if __name__ == "__main__":
     app = make_app()
     port = int(os.environ.get("PORT", 8888))
-    app.listen(post)
+    app.listen(port)
     tornado.ioloop.IOLoop.current().start()
