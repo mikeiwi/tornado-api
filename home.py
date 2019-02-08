@@ -12,7 +12,14 @@ class MainHandler(tornado.web.RequestHandler):
 
 class LoanHandler(tornado.web.RequestHandler):
     def post(self):
-        self.write("All we need is loan <3")
+        requested_amount = float(self.get_argument('requested_amount'))
+
+        if requested_amount < 50000:
+            self.write({'message': 'Approved'})
+        elif requested_amount > 50000:
+            self.write({'message': 'Declined'})
+        else:
+            self.write({'message': 'Undecided'})
 
 
 def make_app():
