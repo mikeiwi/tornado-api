@@ -12,7 +12,12 @@ class MainHandler(tornado.web.RequestHandler):
 
 class LoanHandler(tornado.web.RequestHandler):
     def post(self):
-        requested_amount = float(self.get_argument('requested_amount'))
+        try:
+            requested_amount = float(self.get_argument('requested_amount', ''))
+        except ValueError:
+            self.set_status(400)
+            self.finish({'message': '`requested_amount` not valid.'})
+            return
 
         if requested_amount < 50000:
             self.write({'message': 'Approved'})
